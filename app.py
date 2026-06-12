@@ -29,7 +29,7 @@ def process_lecture(audio_file, input_lang, output_lang):
     text, segments = transcribe(audio_path, language=asr_lang)
 
     # 2. Translation
-    # translated = translate_text(text, target_lang=out_lang_code)
+    translated = translate_text(text, target_lang=out_lang_code)
 
     # 3. Summary
     summary = summarize_text(text, lang=out_lang_code)
@@ -38,8 +38,8 @@ def process_lecture(audio_file, input_lang, output_lang):
     summary_audio_path = "outputs/summary_output.mp3"
     synthesize(summary, lang=out_lang_code, out_path=summary_audio_path)
 
-    # return text, translated, summary, summary_audio_path
-    return text, summary, summary_audio_path
+    return text, translated, summary, summary_audio_path
+    # return text, summary, summary_audio_path
 
 
 def qa_feedback(lecture_text, question, output_lang):
