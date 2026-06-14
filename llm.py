@@ -45,6 +45,7 @@ def translate_text(text, target_lang="ko"):
 
     prompt = f"""
 Translate the following lecture transcript into {language}.
+If the text is short or not a formal lecture, still translate it as-is. Never ask for a transcript; output only the translation.
 
 Requirements:
 - Keep technical terms accurate.
@@ -58,13 +59,13 @@ Transcript:
 
 
 def summarize_text(text, lang="ko"):
-
     language = "Korean" if lang == "ko" else "English"
 
     prompt = f"""
 You are an AI lecture assistant.
 
 Summarize the lecture in {language}.
+Summarize whatever text is given, even if it is short or not a formal lecture. Never refuse and never say a transcript was not provided.
 
 Requirements:
 
@@ -90,7 +91,6 @@ Lecture transcript:
 
 {text}
 """
-
     return _call_gemini(prompt)
 
 

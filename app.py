@@ -28,6 +28,9 @@ def process_lecture(audio_file, input_lang, output_lang):
     # 1. ASR
     text, segments = transcribe(audio_path, language=asr_lang)
 
+    if not text.strip():
+        return "음성에서 인식된 내용이 없습니다. 더 또렷하게 다시 녹음해주세요.", "", "", None
+
     # 2. Translation
     translated = translate_text(text, target_lang=out_lang_code)
 
@@ -83,7 +86,8 @@ with gr.Blocks(title="AI Lecture Assistant") as demo:
         )
 
     audio_input = gr.Audio(
-        label="강의 음성 파일 업로드",
+        sources = ["upload", "microphone"],
+        label="강의 음성 (파일 업로드 또는 마이크 녹음)",
         type="filepath"
     )
 
